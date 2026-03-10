@@ -123,6 +123,7 @@ export function CalendarExpenseTable({
         <thead style={theadStyle}>
           <tr>
             <th style={thStyle}>Date</th>
+            <th style={thStyle}>Payer Name</th>
             <th style={thStyle}>Description</th>
             <th style={thStyle}>Category</th>
             <th style={thStyle}>Amount</th>
@@ -133,6 +134,7 @@ export function CalendarExpenseTable({
           {currentExpenses.map((expense) => (
             <tr key={expense.id}>
               <td style={tdStyle}>{formatDate(new Date(expense.date))}</td>
+              <td style={tdStyle}>{expense.payer_name}</td>
               <td style={tdStyle}>{expense.description}</td>
               <td style={tdStyle}>
                 <span

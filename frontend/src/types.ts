@@ -5,6 +5,7 @@
 export interface Expense {
   id: number;
   amount: number;
+  payer_name: string
   description: string;
   category: string;
   date: string;
@@ -14,6 +15,7 @@ export interface Expense {
 
 export interface ExpenseFormData {
   amount: string;
+  payer_name: string
   description: string;
   category: string;
   date: string;

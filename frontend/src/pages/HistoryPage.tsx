@@ -73,12 +73,13 @@ const HistoryPage: React.FC = () => {
 
   const handleAddExpense = async (data: ExpenseFormData) => {
     try {
-      await createExpense(data);
+      await createExpense(data); // Will now validate properly
       setIsModalOpen(false);
-      fetchExpenses();
-    } catch (error) {
+      await fetchExpenses(); // refresh the list
+    } catch (error: any) {
+      // Show a friendly alert or log
       console.error("Error creating expense:", error);
-      throw error;
+      alert(error.message || "Failed to create expense");
     }
   };
 

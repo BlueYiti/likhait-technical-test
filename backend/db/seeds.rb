@@ -24,8 +24,23 @@ end
 
 puts "Created #{created_categories.count} categories"
 
-# Generate expenses from January 2024 to February 18, 2026
-puts "Creating expenses from January 2024 to February 18, 2026..."
+payer_names = [
+    'John Doe',
+    'Jane Smith',
+    'Mike Johnson',
+    'Sarah Lee',
+    'John Doe',
+    'Emily Chen',
+    'Mike Johnson',
+    'Jane Smith',
+    'Sarah Lee',
+    'Emily Chen',
+    'John Doe',
+    'Mike Johnson',
+    'Jane Smith',
+    'Sarah Lee',
+    'Emily Chen'
+]
 
 # Define expense templates for variety
 expense_templates = {
