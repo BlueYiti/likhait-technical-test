@@ -54,10 +54,7 @@ services:
       - backend_gems:/usr/local/bundle
     command: >
       sh -c "
-        bundle install &&
-        rails db:migrate &&
-        rails db:seed &&
-        rails server -b 0.0.0.0
+        bin/rails server -b 0.0.0.0
       "
     networks:
       - expense_network
