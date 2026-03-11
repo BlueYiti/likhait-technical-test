@@ -86,14 +86,14 @@ const Sidebar: React.FC<SidebarProps> = ({
     padding: "16px 0",
   };
 
-  const navItemStyle: React.CSSProperties = {
+  const getNavItemStyle = (page: string): React.CSSProperties => ({
     width: "100%",
     padding: isCollapsed ? "16px" : "16px 24px",
     display: "flex",
     alignItems: "center",
     justifyContent: isCollapsed ? "center" : "flex-start",
     gap: "16px",
-    background: currentPage === "history" ? COLORS.primary.p03 : "transparent",
+    background: currentPage === page ? COLORS.primary.p03 : "transparent",
     border: "none",
     cursor: "pointer",
     fontSize: "18px",
@@ -101,7 +101,7 @@ const Sidebar: React.FC<SidebarProps> = ({
     color: COLORS.primary.p09,
     textAlign: "left",
     transition: "background 0.2s",
-  };
+  });
 
   const navTextStyle: React.CSSProperties = {
     display: isCollapsed ? "none" : "inline",
@@ -139,8 +139,9 @@ const Sidebar: React.FC<SidebarProps> = ({
       </div>
 
       <nav style={navStyle}>
+        {/* History */}
         <button
-          style={navItemStyle}
+          style={getNavItemStyle("history")}
           onClick={() => onNavigate?.("history")}
           onMouseEnter={(e) => {
             if (currentPage !== "history") {
@@ -167,6 +168,35 @@ const Sidebar: React.FC<SidebarProps> = ({
             <line x1="3" y1="10" x2="21" y2="10" />
           </svg>
           <span style={navTextStyle}>History</span>
+        </button>
+
+        {/* Categories */}
+        <button
+          style={getNavItemStyle("categories")}
+          onClick={() => onNavigate?.("categories")}
+          onMouseEnter={(e) => {
+            if (currentPage !== "categories") {
+              e.currentTarget.style.background = COLORS.primary.p02;
+            }
+          }}
+          onMouseLeave={(e) => {
+            if (currentPage !== "categories") {
+              e.currentTarget.style.background = "transparent";
+            }
+          }}
+        >
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+          >
+            <path d="M20 13V7a2 2 0 0 0-2-2h-6l-2-2H6a2 2 0 0 0-2 2v6" />
+            <rect x="2" y="13" width="20" height="8" rx="2" />
+          </svg>
+          <span style={navTextStyle}>Categories</span>
         </button>
       </nav>
     </aside>
