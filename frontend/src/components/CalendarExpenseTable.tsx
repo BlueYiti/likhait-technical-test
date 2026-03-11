@@ -192,6 +192,7 @@ export function CalendarExpenseTable({
           <ExpenseForm
             initialData={{
               amount: editingExpense.amount.toString(),
+              payer_name: editingExpense.payer_name,
               description: editingExpense.description,
               category: editingExpense.category,
               expense_date: formatDate(new Date(editingExpense.expense_date)),
