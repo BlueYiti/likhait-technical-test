@@ -14,9 +14,10 @@ interface UseExpenseFormProps {
 export function useExpenseForm({ initialData, onSubmit }: UseExpenseFormProps) {
   const [formData, setFormData] = useState<ExpenseFormData>({
     amount: initialData?.amount || "",
+    payer_name: initialData?.payer_name || "",
     description: initialData?.description || "",
     category: initialData?.category || "",
-    date: initialData?.date || formatDate(new Date()),
+    expense_date: initialData?.expense_date || formatDate(new Date()),
   });
 
   const [errors, setErrors] = useState<Partial<ExpenseFormData>>({});
@@ -31,10 +32,14 @@ export function useExpenseForm({ initialData, onSubmit }: UseExpenseFormProps) {
   };
 
   const validateForm = (): boolean => {
-    const newErrors: Partial<ExpenseFormData> = {};
+    const newErrors: Partial<ExpenseFormData & { payer_name: string }> = {};
 
     if (!formData.amount || Number(formData.amount) <= 0) {
       newErrors.amount = "Amount must be greater than 0";
+    }
+
+    if (!formData.payer_name?.trim()) {
+      newErrors.payer_name = "Payer name is required";
     }
 
     if (!formData.description.trim()) {
@@ -45,8 +50,8 @@ export function useExpenseForm({ initialData, onSubmit }: UseExpenseFormProps) {
       newErrors.category = "Category is required";
     }
 
-    if (!formData.date) {
-      newErrors.date = "Date is required";
+    if (!formData.expense_date) {
+      newErrors.expense_date = "Date is required";
     }
 
     setErrors(newErrors);
@@ -66,9 +71,10 @@ export function useExpenseForm({ initialData, onSubmit }: UseExpenseFormProps) {
       // Reset form on success
       setFormData({
         amount: "",
+        payer_name: "",
         description: "",
         category: "",
-        date: formatDate(new Date()),
+        expense_date: formatDate(new Date()),
       });
       setErrors({});
     } catch (error) {
@@ -81,9 +87,10 @@ export function useExpenseForm({ initialData, onSubmit }: UseExpenseFormProps) {
   const resetForm = () => {
     setFormData({
       amount: initialData?.amount || "",
+      payer_name: initialData?.payer_name || "",
       description: initialData?.description || "",
       category: initialData?.category || "",
-      date: initialData?.date || formatDate(new Date()),
+      expense_date: initialData?.expense_date || formatDate(new Date()),
     });
     setErrors({});
   };

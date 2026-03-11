@@ -49,16 +49,20 @@ export async function fetchCategories(): Promise<
 /**
  * Create a new expense
  */
-export async function createExpense(data: ExpenseFormData): Promise<Expense> {
-  // Convert category name to category_id
+export async function createExpense(data: ExpenseFormData & { payer_name: string }): Promise<Expense> {
   const categories = await fetchCategories();
   const category = categories.find((c) => c.name === data.category);
 
+  if (!category) {
+    throw new Error(`Category "${data.category}" not found`);
+  }
+
   const expenseData = {
     description: data.description,
-    amount: data.amount,
-    category_id: category?.id,
-    date: data.date,
+    amount: Number(data.amount), // ensure numeric
+    category_id: category.id,    // guaranteed to exist
+    expense_date: data.expense_date, // use the correct field name
+    payer_name: data.payer_name,
   };
 
   const response = await fetch(`${API_BASE_URL}/expenses`, {
@@ -70,6 +74,8 @@ export async function createExpense(data: ExpenseFormData): Promise<Expense> {
   });
 
   if (!response.ok) {
+    const errorBody = await response.text(); // log backend error
+    console.error("Backend response:", errorBody);
     throw new Error("Failed to create expense");
   }
 

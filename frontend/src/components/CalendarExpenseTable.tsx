@@ -123,6 +123,7 @@ export function CalendarExpenseTable({
         <thead style={theadStyle}>
           <tr>
             <th style={thStyle}>Date</th>
+            <th style={thStyle}>Payer Name</th>
             <th style={thStyle}>Description</th>
             <th style={thStyle}>Category</th>
             <th style={thStyle}>Amount</th>
@@ -132,7 +133,8 @@ export function CalendarExpenseTable({
         <tbody>
           {currentExpenses.map((expense) => (
             <tr key={expense.id}>
-              <td style={tdStyle}>{formatDate(new Date(expense.date))}</td>
+              <td style={tdStyle}>{formatDate(new Date(expense.expense_date))}</td>
+              <td style={tdStyle}>{expense.payer_name}</td>
               <td style={tdStyle}>{expense.description}</td>
               <td style={tdStyle}>
                 <span
@@ -190,9 +192,10 @@ export function CalendarExpenseTable({
           <ExpenseForm
             initialData={{
               amount: editingExpense.amount.toString(),
+              payer_name: editingExpense.payer_name,
               description: editingExpense.description,
               category: editingExpense.category,
-              date: formatDate(new Date(editingExpense.date)),
+              expense_date: formatDate(new Date(editingExpense.expense_date)),
             }}
             onSubmit={handleUpdate}
             onCancel={() => {
