@@ -7,7 +7,7 @@ export interface Expense {
   amount: number;
   description: string;
   category: string;
-  date: string;
+  expense_date: string;
   created_at: string;
   updated_at: string;
 }
@@ -16,13 +16,22 @@ export interface ExpenseFormData {
   amount: string;
   description: string;
   category: string;
-  date: string;
+  expense_date: string;
 }
 
 export interface MonthlySummary {
   totalExpenses: number;
   categoryBreakdown: CategoryBreakdown[];
   topCategories: TopCategory[];
+}
+
+export interface Category {
+  id: number;
+  name: string;
+  description?: string;
+  created_at?: string;
+  updated_at?: string;
+  emoji?: string;
 }
 
 export interface CategoryBreakdown {
