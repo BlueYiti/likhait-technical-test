@@ -70,8 +70,4 @@ The date picker in the expense form should:
 
 ### 🎬 Steps to Reproduce
 
-1. Click History on the sidebar
-2. Add a new expense through the "Add Expense" button 
-3. Fill up the expense form
-4. Choose a date that already has expenses listed
-5. The newly added expense would go to the bottom of the group of the date
+N/A - Feature doesn't exist yet
