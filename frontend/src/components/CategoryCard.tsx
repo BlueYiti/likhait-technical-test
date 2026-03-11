@@ -1,14 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { Category } from "../types"; 
+import { CategoryCardProps } from "../types"; 
 import { Button, Modal } from "../vibes";
 import { COLORS } from "../constants/colors";
 import { getCategoryEmoji } from "../utils/categoryUtils";
-
-interface CategoryCardProps {
-  category: Category;
-  onDelete: (id: number) => void;
-  onUpdate: (category: Category) => Promise<void>; // <- expects async function
-}
 
 export const CategoryCard: React.FC<CategoryCardProps> = ({
   category,

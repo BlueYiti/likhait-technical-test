@@ -25,6 +25,12 @@ export interface MonthlySummary {
   topCategories: TopCategory[];
 }
 
+export interface DayExpenses {
+  day: number;
+  expenses: Expense[];
+  total: number;
+}
+
 export interface Category {
   id: number;
   name: string;
@@ -40,14 +46,21 @@ export interface CategoryBreakdown {
   percentage: number;
 }
 
+export interface CategoryGridProps {
+  categories: Category[];
+  onDelete: (id: number) => void;
+  onUpdate: (category: Category) => void;
+}
+
+export interface CategoryCardProps {
+  category: Category;
+  onDelete: (id: number) => void;
+  onUpdate: (category: Category) => Promise<void>; // <- expects async function
+}
+
 export interface TopCategory {
   category: string;
   total: number;
   count: number;
 }
 
-export interface DayExpenses {
-  day: number;
-  expenses: Expense[];
-  total: number;
-}

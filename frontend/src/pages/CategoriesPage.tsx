@@ -34,19 +34,19 @@ const CategoriesPage: React.FC = () => {
   };
 
   const handleUpdateCategory = async (updatedCategory: Category) => {
-  try {
-    // Assuming you have an API endpoint for updating a category
-    await updateCategory(updatedCategory.id, updatedCategory.name, updatedCategory.emoji);
+    try {
+      // Call the API to update category on the backend
+      await updateCategory(updatedCategory.id, updatedCategory.name, updatedCategory.emoji);
 
-    // Update local state so the grid updates immediately
-    setCategories((prev) =>
-      prev.map((cat) => (cat.id === updatedCategory.id ? updatedCategory : cat))
-    );
-  } catch (error) {
-    console.error("Failed to update category:", error);
-    alert("Failed to update category");
-  }
-};
+      // Update local state so UI updates immediately
+      setCategories(prev =>
+        prev.map(cat => (cat.id === updatedCategory.id ? updatedCategory : cat))
+      );
+    } catch (err) {
+      console.error("Failed to update category", err);
+      alert("Failed to update category");
+    }
+  };
 
   const handleDeleteCategory = async (id: number) => {
     await deleteCategory(id);

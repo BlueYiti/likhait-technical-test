@@ -5,7 +5,7 @@ import { CategoryCard } from "./CategoryCard";
 interface CategoryGridProps {
   categories: Category[];
   onDelete: (id: number) => void;
-  onUpdate: (category: Category) => void;
+  onUpdate: (category: Category) => Promise<void>;
 }
 
 export const CategoryGrid: React.FC<CategoryGridProps> = ({
