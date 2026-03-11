@@ -15,6 +15,8 @@ interface ExpenseFormProps {
   submitLabel?: string;
 }
 
+const today = new Date().toISOString().split("T")[0];
+
 export function ExpenseForm({
   initialData,
   onSubmit,
@@ -59,6 +61,14 @@ export function ExpenseForm({
       />
 
       <TextField
+        label="Payer Name"
+        type="text"
+        value={formData.payer_name}
+        onChange={(e) => handleChange("payer_name", e.target.value)}
+        required
+      />
+
+      <TextField
         label="Description"
         type="text"
         placeholder="Enter description"
@@ -82,11 +92,12 @@ export function ExpenseForm({
       <TextField
         label="Date"
         type="date"
-        value={formData.date}
-        onChange={(e) => handleChange("date", e.target.value)}
-        error={errors.date}
+        value={formData.expense_date}
+        onChange={(e) => handleChange("expense_date", e.target.value)}
+        error={errors.expense_date}
         fullWidth
         required
+        max={today}
       />
 
       <div style={buttonGroupStyle}>
