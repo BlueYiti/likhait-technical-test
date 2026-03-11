@@ -61,7 +61,7 @@ export async function createExpense(data: ExpenseFormData & { payer_name: string
     description: data.description,
     amount: Number(data.amount), // ensure numeric
     category_id: category.id,    // guaranteed to exist
-    expense_date: data.date,
+    expense_date: data.expense_date, // use the correct field name
     payer_name: data.payer_name,
   };
 

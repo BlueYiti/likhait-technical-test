@@ -1,18 +1,19 @@
-FROM node:18-alpine
+FROM node:20-alpine
 
+# Set working directory
 WORKDIR /app
 
-# Copy package files
-COPY package*.json ./
+# Copy dependency files first (better Docker caching)
+COPY package.json package-lock.json ./
 
 # Install dependencies
-RUN npm install
+RUN npm ci
 
-# Copy the rest of the application
+# Copy the rest of the app
 COPY . .
 
-# Expose port
+# Expose Vite port
 EXPOSE 5173
 
-# Start the development server
+# Start dev server
 CMD ["npm", "run", "dev", "--", "--host"]

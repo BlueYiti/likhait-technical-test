@@ -133,7 +133,7 @@ export function CalendarExpenseTable({
         <tbody>
           {currentExpenses.map((expense) => (
             <tr key={expense.id}>
-              <td style={tdStyle}>{formatDate(new Date(expense.date))}</td>
+              <td style={tdStyle}>{formatDate(new Date(expense.expense_date))}</td>
               <td style={tdStyle}>{expense.payer_name}</td>
               <td style={tdStyle}>{expense.description}</td>
               <td style={tdStyle}>
@@ -194,7 +194,7 @@ export function CalendarExpenseTable({
               amount: editingExpense.amount.toString(),
               description: editingExpense.description,
               category: editingExpense.category,
-              date: formatDate(new Date(editingExpense.date)),
+              expense_date: formatDate(new Date(editingExpense.expense_date)),
             }}
             onSubmit={handleUpdate}
             onCancel={() => {

@@ -90,9 +90,9 @@ export function ExpenseForm({
       <TextField
         label="Date"
         type="date"
-        value={formData.date}
-        onChange={(e) => handleChange("date", e.target.value)}
-        error={errors.date}
+        value={formData.expense_date}
+        onChange={(e) => handleChange("expense_date", e.target.value)}
+        error={errors.expense_date}
         fullWidth
         required
       />

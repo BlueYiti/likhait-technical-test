@@ -131,55 +131,46 @@ expense_templates = {
 start_date = Date.new(2024, 1, 1)
 end_date = Date.new(2026, 2, 18)
 
-expense_count = 0
+expenses_to_insert = []
 current_date = start_date
 
 while current_date <= end_date
-  # Generate 3-8 expenses per day (random for variety)
-  daily_expense_count = rand(3..8)
-
-  daily_expense_count.times do
-    # Pick a random category
+  rand(3..8).times do
     category = created_categories.sample
-
-    # Get templates for this category
     templates = expense_templates[category.name]
+    next unless templates
 
-    if templates
-      # Pick a random template
-      template = templates.sample
+    template = templates.sample
+    amount = rand(template[:amount_range]).to_f + rand(0..99)/100.0
 
-      # Generate random amount within the range
-      amount = rand(template[:amount_range]).round(2)
+    # Random time during the day
+    random_time = Time.zone.local(
+      current_date.year,
+      current_date.month,
+      current_date.day,
+      rand(0..23),
+      rand(0..59),
+      rand(0..59)
+    )
 
-      # Add some decimal variation
-      amount += rand(0..99) / 100.0
-
-      # Create the expense with created_at set to the date
-      Expense.create!(
-        description: template[:description],
-        amount: amount,
-        category: category,
-        date: current_date,
-        created_at: current_date,
-        updated_at: current_date
-      )
-
-      expense_count += 1
-
-      # Print progress every 100 expenses
-      if expense_count % 100 == 0
-        puts "Created #{expense_count} expenses..."
-      end
-    end
+    expenses_to_insert << {
+      description: template[:description],
+      amount: amount,
+      category_id: category.id,
+      expense_date: random_time,
+      created_at: random_time,
+      updated_at: random_time,
+      payer_name: payer_names.sample
+    }
   end
-
-  # Move to next day
   current_date += 1.day
 end
+
+puts "Inserting #{expenses_to_insert.size} expenses..."
+Expense.insert_all(expenses_to_insert)
 
 puts "Seed data created successfully!"
 puts "Total categories: #{Category.count}"
 puts "Total expenses: #{Expense.count}"
-puts "Date range: #{Expense.minimum(:created_at).to_date} to #{Expense.maximum(:created_at).to_date}"
+puts "Date range: #{Expense.minimum(:expense_date)} to #{Expense.maximum(:expense_date)}"
 puts "Total amount: $#{Expense.sum(:amount).round(2)}"

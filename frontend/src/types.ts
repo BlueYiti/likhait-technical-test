@@ -8,7 +8,7 @@ export interface Expense {
   payer_name: string
   description: string;
   category: string;
-  date: string;
+  expense_date: string;
   created_at: string;
   updated_at: string;
 }
@@ -18,7 +18,7 @@ export interface ExpenseFormData {
   payer_name: string
   description: string;
   category: string;
-  date: string;
+  expense_date: string;
 }
 
 export interface MonthlySummary {
